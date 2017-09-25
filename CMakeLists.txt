@@ -51,4 +51,22 @@ add_custom_target(
     WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
 )
 
-add_executable(${PROJECT_NAME} ${SRC_LIST})
+add_custom_target(
+        PLATFORMIO_BUILD_D1_MINI ALL
+        COMMAND ${PLATFORMIO_CMD} -f -c clion run -e d1_mini
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+add_custom_target(
+        PLATFORMIO_UPLOAD_D1_MINI ALL
+        COMMAND ${PLATFORMIO_CMD} -f -c clion run -e d1_mini -t upload
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+add_custom_target(
+        PLATFORMIO_CLEAN_D1_MINI ALL
+        COMMAND ${PLATFORMIO_CMD} -f -c clion run -e d1_mini --target clean
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+add_executable(${PROJECT_NAME} ${SRC_LIST} src/config.h src/utils.h src/utils.cpp)
